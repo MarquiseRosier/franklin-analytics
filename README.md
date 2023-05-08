@@ -1,5 +1,5 @@
-# Your Project's Title...
-Your project's description...
+Franklin Analytics
+A Franklin site that houses data visualization tools that can be useful to site developers and authors!
 
 ## Environments
 - Preview: https://main--{repo}--{owner}.hlx.page/
