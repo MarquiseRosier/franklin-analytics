@@ -6,11 +6,16 @@ export default function decorate(block) {
         }
       });
     });
-    block.querySelectorAll(':scope > div > div').forEach((cell) => {
-        cell.classList.add('login-content');
-        const wrapper = document.createElement('div');
-        wrapper.className = 'login-content-wrapper';
-        while(cell.firstChild) wrapper.append(cell.firstChild)
-        cell.append(wrapper)
+    fetch('https://admin.hlx.page/profile/adobe/blog').then(res => res.json()).then((data) => {
+        if(data.status = 401){
+            block.querySelectorAll(':scope > div > div').forEach((cell) => {
+                cell.classList.add('login-content');
+                const link = document.createElement('a');
+                link.href = data.links.login;
+                link.textContent = cell.firstChild.textContent;
+                cell.append(link);
+                cell.firstChild.remove();
+            })
+        }
     })
 }
