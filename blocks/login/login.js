@@ -12,6 +12,8 @@ export default function decorate(block) {
                 cell.classList.add('login-content');
                 const link = document.createElement('a');
                 link.href = data.links.login;
+                link.target="popup"
+                link.onclick=() => {window.open(data.links.login, 'popup', 'width=300,height=300'); return false}
                 link.textContent = cell.firstChild.textContent;
                 cell.append(link);
                 cell.firstChild.remove();
