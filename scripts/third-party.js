@@ -1,4 +1,4 @@
-const ECHARTS = 'https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js';
+const CHARTJS = 'https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js';
 
 function createInlineScriptHTML(innerHTML, parent) {
   const script = document.createElement('script');
@@ -15,5 +15,5 @@ function createInlineScriptSrc(src, parent){
 }
 
 export default function integrateEcharts() {
-  createInlineScriptSrc(ECHARTS, document.body);
+  createInlineScriptSrc(CHARTJS, document.body);
 }
