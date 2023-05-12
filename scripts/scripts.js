@@ -13,7 +13,7 @@ import {
   loadCSS,
 } from './lib-franklin.js';
 
-import integrateEcharts from './third-party.js';
+import integrateChartjs from './third-party.js';
 
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -81,6 +81,8 @@ async function loadEager(doc) {
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
+  integrateChartjs();
+  initPartytown();
 }
 
 /**
@@ -114,9 +116,6 @@ async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
-
-  integrateEcharts();
-  initPartytown();
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.png`);
