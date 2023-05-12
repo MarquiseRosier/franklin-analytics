@@ -1,4 +1,4 @@
-const ECHARTS = 'https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js';
+const ECHARTS = 'https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js';
 
 function createInlineScriptHTML(innerHTML, parent) {
   const script = document.createElement('script');
