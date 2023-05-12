@@ -5,7 +5,7 @@ export default function decorate(block) {
       canvas.id = 'mychart'
     }
     */
-    const canvasWrapper = createElement('div');
+    const canvasWrapper = document.createElement('div');
     canvas.id = 'mychart';
     canvasWrapper.appendChild(canvas);
     block.append(canvasWrapper);
