@@ -15,5 +15,5 @@ function createInlineScriptSrc(src, parent){
 }
 
 export default function integrateEcharts() {
-  createInlineScriptSrc(ECHARTS, document.head);
+  createInlineScriptSrc(ECHARTS, document.body);
 }
