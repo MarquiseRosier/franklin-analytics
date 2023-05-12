@@ -1,4 +1,4 @@
-const CHARTJS = 'https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js';
+const ECHARTS = 'https://cdn.jsdelivr.net/npm/echarts@5.0/dist/echarts.min.js';
 
 function createInlineScriptHTML(innerHTML, parent) {
   const script = document.createElement('script');
@@ -14,6 +14,6 @@ function createInlineScriptSrc(src, parent){
   parent.appendChild(script); 
 }
 
-export default function integrateChartjs() {
-  createInlineScriptSrc(CHARTJS, document.head);
+export default function integrateEcharts() {
+  createInlineScriptSrc(ECHARTS, document.head);
 }

@@ -1,35 +1,38 @@
 export default function decorate(block) {
-    const canvas = document.createElement('canvas');
-    /*const row = block.children[0];
-    if (row.children.length === 2) {
-      canvas.id = 'mychart'
-    }
-    */
     const canvasWrapper = document.createElement('div');
-    canvas.id = 'mychart';
-    canvasWrapper.appendChild(canvas);
+    canvasWrapper.id = 'mychart';
+    canvasWrapper.style = "width: 600px; height: 400px;";
     block.append(canvasWrapper);
+    
+    const echartsScript = document.createElement('script');
+    echartsScript.type = 'text/partytown';
+    echartsScript.innerHTML = `
+    var myChart = echarts.init(document.getElementById('mychart'));
 
-    document.querySelectorAll(':scope > div > div').forEach((cell) => {
-        const ctx = document.getElementById('mychart');
+    // Specify the configuration items and data for the chart
+    var option = {
+      title: {
+        text: 'A Start'
+      },
+      tooltip: {},
+      legend: {
+        data: ['sales']
+      },
+      xAxis: {
+        data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+      },
+      yAxis: {},
+      series: [
+        {
+          name: 'sales',
+          type: 'bar',
+          data: [5, 20, 36, 10, 10, 20]
+        }
+      ]
+    };
+    
+    // Display the chart using the configuration items and data just specified.
+    myChart.setOption(option);`
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-              datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-    });
+    block.append(echartsScript);
 }
