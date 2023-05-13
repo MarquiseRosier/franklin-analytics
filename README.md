@@ -2,8 +2,8 @@ Franklin Analytics
 A Franklin site that houses data visualization tools that can be useful to site developers and authors!
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://main--franklin-analytics--marquiserosier.hlx.page/
+- Live: https://main--franklin-analytics--marquiserosier.hlx.live/
 
 ## Installation
 
