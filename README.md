@@ -7,10 +7,16 @@ A Franklin site that houses data visualization tools that can be useful to site 
 
 ## Installation
 
-```sh
-npm i
-```
-
+1. Install all of the dependencies you will need in order to develop!
+  ```sh
+  npm i
+  ```
+2. The above command runs partytown copylibs into the ./script folder and minifys them.
+```sh 
+ npm run build
+``` 
+  
+3. 
 ## Linting
 
 ```sh
