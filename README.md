@@ -11,7 +11,7 @@ A Franklin site that houses data visualization tools that can be useful to site 
   ```sh
   npm i
   ```
-2. The above command runs partytown copylibs into the ./script folder and minifys them.
+2. build runs partytown copylibs, and copys library files into the ./script folder. Also minifys them.
 ```sh 
  npm run build
 ``` 
