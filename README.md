@@ -16,7 +16,6 @@ A Franklin site that houses data visualization tools that can be useful to site 
  npm run build
 ``` 
   
-3. 
 ## Linting
 
 ```sh
