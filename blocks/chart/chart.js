@@ -12,7 +12,7 @@ export default function decorate(block) {
   }
   const axisDict = {
     'avgfid': [0, 100],
-    'avgcls': [0, 0.75],
+    'avgcls': [0, 0.8],
     'avglcp': [0, 4000],
   }
   block.querySelectorAll(':scope > div > div').forEach((cell, idx, nodeList) => {
@@ -43,7 +43,7 @@ export default function decorate(block) {
     const tableColumn = propDict['data'][1];
     const linkRelativePath = propDict['link'][0];
     const linkDataUrl = propDict['link'][1];
-    const chartId = propDict['data'].join('-') + '-' + propDict['type'].join('-'); //id is data row + chart type because why have this twice? 
+    const chartId = propDict['data'].join('-') + '-' + propDict['type'].join('-'); //id is data row + chart type because why have this twice?
     
     //construct canvas where chart will sit
     const canvasWrapper = document.createElement('div');
@@ -52,7 +52,6 @@ export default function decorate(block) {
     block.append(canvasWrapper);
 
     const paramData = new URLSearchParams();
-    paramData.append('domainkey', domainKey);
     paramData.append('startdate', '2023-01-01');
     paramData.append('enddate', '2023-05-14');
     paramData.append('limit', 10);
@@ -87,7 +86,6 @@ export default function decorate(block) {
           xAxis: {
             min: ${axisDict[tableColumn][0]},
             max: ${axisDict[tableColumn][1]},
-            tick: 10,
           },
           yAxis: {
             data: labels
@@ -95,7 +93,7 @@ export default function decorate(block) {
           series: [
             {
               name: '${tableColumn}',
-              type: 'bar',
+              type: '${typeChart}',
               data: series,
             }
           ]
@@ -108,3 +106,4 @@ export default function decorate(block) {
     block.append(echartsScript);
   }
 }
+
