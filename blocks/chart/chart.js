@@ -17,18 +17,25 @@ export default function decorate(block) {
   }
   block.querySelectorAll(':scope > div > div').forEach((cell, idx, nodeList) => {
     //get first element and link it to the other 2 in a row.
-    let currData;
+    let key;
+    let val1;
+    let val2;
     if(idx%3 === 0
       && nodeList.length%3 === 0
       && idx+1 <= nodeList.length
       && idx+2 <= nodeList.length 
-      && nodeList[idx+1].firstChild.nodeType === 3 
-      && nodeList[idx+1].firstChild.nodeName === "#text"
-      && nodeList[idx+2].firstChild.nodeType === 3 
-      && nodeList[idx+2].firstChild.nodeName === "#text"){
-      currData = cell.firstChild;
-      while(currData.firstChild) {currData = currData.firstChild;}
-      propDict[currData.data.toLowerCase()] = [nodeList[idx+1].firstChild.data.toLowerCase(), nodeList[idx+2].firstChild.data.toLowerCase()];
+      && (nodeList[idx+1].firstChild.nodeType === 1 || nodeList[idx+1].firstChild.nodeType === 3)  
+      && (nodeList[idx+1].firstChild.nodeName === "#text" || nodeList[idx+1].firstChild.nodeName === "A")
+      && (nodeList[idx+2].firstChild.nodeType === 1 || nodeList[idx+2].firstChild.nodeType === 3)
+      && (nodeList[idx+2].firstChild.nodeName === "#text" || nodeList[idx+2].firstChild.nodeName === "A")){
+      key = cell.firstChild;
+      while(key.firstChild) {key = key.firstChild;}
+      val1 = nodeList[idx+1].firstChild;
+      while(val1.firstChild) {val1 = val1.firstChild;}
+      val2 = nodeList[idx+2].firstChild;
+      while(val2.firstChild) {val2 = val2.firstChild;}
+      
+      propDict[key.data.toLowerCase()] = [val1.data.toLowerCase(), val2.data.toLowerCase()];
       nodeList[idx].parentElement.remove()
       nodeList[idx+1].parentElement.remove();
       nodeList[idx+2].parentElement.remove();
@@ -43,6 +50,8 @@ export default function decorate(block) {
     const tableColumn = propDict['data'][1];
     const linkRelativePath = propDict['link'][0];
     const linkDataUrl = propDict['link'][1];
+    const legend = propDict['label'][0];
+    const labelKey = propDict['label'][1];
     const chartId = propDict['data'].join('-') + '-' + propDict['type'].join('-'); //id is data row + chart type because why have this twice?
     
     //construct canvas where chart will sit
@@ -52,13 +61,16 @@ export default function decorate(block) {
     block.append(canvasWrapper);
 
     const paramData = new URLSearchParams();
-    paramData.append('startdate', '2023-01-01');
+    paramData.append('startdate', '2020-01-01');
     paramData.append('enddate', '2023-05-14');
     paramData.append('limit', 10);
     Object.entries(paramsObj).forEach(([param, val]) => {
       paramData.append(param, val);
     });
     
+    const min = axisDict[tableColumn][0];
+    const max = axisDict[tableColumn][1];
+
     const echartsScript = document.createElement('script');
     echartsScript.type = 'text/partytown';
     //echartsScript.src ='../../scripts/request-rum.js'
@@ -73,40 +85,104 @@ export default function decorate(block) {
     .then((res) => res.json())
     .then((data) => {
       const res = data.results.data;
-      var myChart = echarts.init(document.getElementById('${chartId}'));
-      var labels = res.map(row => row.url);
+      var myChart = echarts.init(document.getElementById('${chartId}'), null, {
+        renderer:'svg'
+      });
+      var labels = res.map(row => row.${labelKey});
       var series = res.map(row => row.${tableColumn});
   
       // Specify the configuration items and data for the chart
-      var option = {
-          title: {
-          text: '${legendDict[tableColumn]}'
-          },
-          tooltip: {},
-          legend: {
-          data: ['${tableColumn}']
-          },
-          xAxis: {
-            min: ${axisDict[tableColumn][0]},
-            max: ${axisDict[tableColumn][1]},
-          },
-          yAxis: {
-            data: labels
-          },
-          series: [
-            {
-              name: '${tableColumn}',
-              type: '${typeChart}',
-              data: series,
-            }
-          ]
-        };
+      var option = ${chartPicker(typeChart, chartOrientation, tableColumn, legend, min, max)}
     
       // Display the chart using the configuration items and data just specified.
       myChart.setOption(option);
+
+      myChart.on('click', { targetType: 'axisLabel' }, params => {
+        window.location.href = 'https://main--franklin-analytics--marquiserosier.hlx.page/views/rework-block?url=' + params.value + '&' + '${paramData.toString()}';
+        console.log('localhost:3000/views/rework-block?url=' + params.value + '&' + '${paramData.toString()}')
+      })
   });`
     
     block.append(echartsScript);
   }
 }
 
+const chartPicker = (typeChart, chartOrientation, tableColumn, legend, min, max) => {
+  const CHART_CONFIG = {
+    'bar-horizontal': `{
+      title: {
+      text: '${legend}'
+      },
+      tooltip: {},
+      legend: {
+      data: ['${tableColumn}']
+      },
+      xAxis: {
+        min: ${min},
+        max: ${max},
+      },
+      yAxis: {
+        data: labels,
+        triggerEvent: true,
+      },
+      series: [
+        {
+          name: '${tableColumn}',
+          type: '${typeChart}',
+          data: series,
+        }
+      ]
+    };`,
+
+    'bar-vertical': `{
+      title: {
+      text: '${legend}'
+      },
+      tooltip: {},
+      legend: {
+      data: ['${tableColumn}']
+      },
+      xAxis: {
+        data: labels,
+        triggerEvent: true,
+      },
+      yAxis: {
+        min: ${min},
+        max: ${max},
+      },
+      series: [
+        {
+          name: '${tableColumn}',
+          type: '${typeChart}',
+          data: series,
+        }
+      ]
+    };`,
+
+    'line-line': `{
+      title: {
+      text: '${legend}'
+      },
+      tooltip: {},
+      legend: {
+      data: ['${tableColumn}']
+      },
+      xAxis: {
+        data: labels,
+        triggerEvent: true,
+      },
+      yAxis: {
+        min: ${min},
+        max: ${max},
+      },
+      series: [
+        {
+          name: '${tableColumn}',
+          type: '${typeChart}',
+          data: series,
+        }
+      ]
+    };`
+  }
+  return CHART_CONFIG[[typeChart, chartOrientation].join('-')];
+}
