@@ -1,4 +1,9 @@
 export default function decorate(block) {
+  const params = new URLSearchParams(window.location.search);
+  const paramsObj = Array.from(params.keys()).reduce(
+    (acc, val) => ({ ...acc, [val]: params.get(val) }),
+    {}
+  );
   const propDict = {};
   const legendDict = {
     'avgfid': 'First Input Delay',
@@ -11,25 +16,36 @@ export default function decorate(block) {
     'avglcp': [0, 4000],
   }
   block.querySelectorAll(':scope > div > div').forEach((cell, idx, nodeList) => {
-    if(idx%2 === 0 
-      && nodeList.length%2 === 0
-      && idx+1 <= nodeList.length 
-      && cell.firstChild.nodeType === 3 
-      && cell.firstChild.nodeName === "#text"
+    //get first element and link it to the other 2 in a row.
+    let currData;
+    if(idx%3 === 0
+      && nodeList.length%3 === 0
+      && idx+1 <= nodeList.length
+      && idx+2 <= nodeList.length 
       && nodeList[idx+1].firstChild.nodeType === 3 
-      && nodeList[idx+1].firstChild.nodeName === "#text"){
-      propDict[cell.firstChild.data.toLowerCase()] = nodeList[idx+1].firstChild.data.toLowerCase();
+      && nodeList[idx+1].firstChild.nodeName === "#text"
+      && nodeList[idx+2].firstChild.nodeType === 3 
+      && nodeList[idx+2].firstChild.nodeName === "#text"){
+      currData = cell.firstChild;
+      while(currData.firstChild) {currData = currData.firstChild;}
+      propDict[currData.data.toLowerCase()] = [nodeList[idx+1].firstChild.data.toLowerCase(), nodeList[idx+2].firstChild.data.toLowerCase()];
       nodeList[idx].parentElement.remove()
       nodeList[idx+1].parentElement.remove();
+      nodeList[idx+2].parentElement.remove();
     }
   })
 
   if(Object.keys(propDict).length >= 3){
-    const chartId = propDict['chart-id'];
-    const endpoint = propDict['table-name'];
-    const domainKey = propDict['domain-key'];
-    const tableColumn = propDict['column-name'];
-
+    //we extract the data from the block md
+    const typeChart = propDict['type'][0];
+    const chartOrientation = propDict['type'][1];
+    const endpoint = propDict['data'][0];
+    const tableColumn = propDict['data'][1];
+    const linkRelativePath = propDict['link'][0];
+    const linkDataUrl = propDict['link'][1];
+    const chartId = propDict['data'].join('-') + '-' + propDict['type'].join('-'); //id is data row + chart type because why have this twice? 
+    
+    //construct canvas where chart will sit
     const canvasWrapper = document.createElement('div');
     canvasWrapper.style = 'width: 50vw; height: 50vh';
     canvasWrapper.id = chartId;
