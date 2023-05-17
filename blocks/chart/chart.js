@@ -55,6 +55,9 @@ export default function decorate(block) {
     paramData.append('startdate', '2023-01-01');
     paramData.append('enddate', '2023-05-14');
     paramData.append('limit', 10);
+    Object.entries(paramsObj).forEach(([param, val]) => {
+      paramData.append(param, val);
+    });
     
     const echartsScript = document.createElement('script');
     echartsScript.type = 'text/partytown';
