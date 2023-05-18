@@ -177,7 +177,7 @@ export default function decorate(block) {
         return ymd2Date(a.year, a.month, a.day) < ymd2Date(b.year, b.month, b.day)
       });
       
-      var labels = last30Days(plotData).map(row => [row.year%2000, row.month, row.day].join('-'));
+      var labels = last30Days(plotData).map(row => [row.year, row.month, row.day].join('-'));
       var series = last30Days(plotData).map(row => row.${tableColumn});
 
       // Specify the configuration items and data for the chart
