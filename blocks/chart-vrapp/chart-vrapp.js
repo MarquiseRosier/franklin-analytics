@@ -74,7 +74,7 @@ export default function decorate(block) {
 
     // construct canvas where chart will sit
     const canvasWrapper = document.createElement('div');
-    canvasWrapper.style = "aspect-ration: 1/1; height: max-content; width: max-content"
+    canvasWrapper.style = "aspect-ration: 1/1; height: 100%; width: 100%;"
     canvasWrapper.id = chartId;
     block.append(canvasWrapper);
 
