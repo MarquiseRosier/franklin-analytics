@@ -97,9 +97,8 @@ export default function decorate(block) {
       // Display the chart using the configuration items and data just specified.
       myChart.setOption(option);
 
-      myChart.on('click', { targetType: 'axisLabel' }, params => {
-        window.location.href = 'https://main--franklin-analytics--marquiserosier.hlx.page/views/rework-block?url=' + params.value + '&' + '${paramData.toString()}';
-        console.log('localhost:3000/views/rework-block?url=' + params.value + '&' + '${paramData.toString()}')
+      document.getElementById('${chartId}').querySelectorAll('svg > g > text[x="0"][y="0"]').forEach((cell, idx, nodeList) => {
+        cell.innerHTML = '<a href="${location.host}/views/rework-block?url=' + cell.innerHTML + '&' + '${paramData.toString()}">' + cell.innerHTML + '</a>';
       })
   });`
     
