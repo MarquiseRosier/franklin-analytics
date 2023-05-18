@@ -154,7 +154,7 @@ export default function decorate(block) {
     (async function(){
       let res;
       if(!sessionStorage.getItem('${endpoint}')){
-        const resp = await fetch('https://lqmig3v5eb.execute-api.us-east-1.amazonaws.com/helix-services/run-query/ci5189/${endpoint}', {
+        const resp = await fetch('https://lqmig3v5eb.execute-api.us-east-1.amazonaws.com/helix-services/run-query/ci5237/${endpoint}', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -177,7 +177,7 @@ export default function decorate(block) {
         return ymd2Date(a.year, a.month, a.day) < ymd2Date(b.year, b.month, b.day)
       });
       
-      var labels = last30Days(plotData).map(row => [row.month, row.day, row.year%2000].join('/'));
+      var labels = last30Days(plotData).map(row => [row.year%2000, row.month, row.day].join('-'));
       var series = last30Days(plotData).map(row => row.${tableColumn});
 
       // Specify the configuration items and data for the chart
