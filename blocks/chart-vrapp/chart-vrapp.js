@@ -25,8 +25,7 @@ export default function decorate(block) {
       while (val1.firstChild) { val1 = val1.firstChild; }
       val2 = nodeList[idx + 2].firstChild;
       while (val2.firstChild) { val2 = val2.firstChild; }
-
-      propDict[key.data.toLowerCase()] = [val1.data.toLowerCase(), val2.data];
+      propDict[key.data.toLowerCase()] = [val1.data.toLowerCase(), val2.data.toLowerCase()];
       nodeList[idx].parentElement.remove();
       nodeList[idx + 1].parentElement.remove();
       nodeList[idx + 2].parentElement.remove();
@@ -43,7 +42,6 @@ export default function decorate(block) {
     const linkDataUrl = propDict.link[1];
     const legend = propDict.label[0];
     const labelKey = propDict.label[1];
-    block.id = propDict.id[0];
     const chartId = `${propDict.data.join('-')}-${propDict.type.join('-')}`.toLowerCase(); // id is data row + chart type because why have this twice?
 
 
@@ -76,7 +74,6 @@ export default function decorate(block) {
 
     // construct canvas where chart will sit
     const canvasWrapper = document.createElement('div');
-    canvasWrapper.style = 'width: 50vw; height: 50vh';
     canvasWrapper.id = chartId;
     block.append(canvasWrapper);
 

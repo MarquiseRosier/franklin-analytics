@@ -354,8 +354,15 @@ export function updateSectionsStatus(main) {
  */
 export function decorateBlocks(main) {
   main
-    .querySelectorAll('div.section > div > div')
-    .forEach(decorateBlock);
+  .querySelectorAll('div.section > div > div')
+  .forEach((block, idx) => {
+    decorateBlock(block)
+    const shortBlockName = block.classList[0];
+    //create id for each chart
+    if(shortBlockName === 'chart-vrapp'){
+      block.id = `chart${idx}`
+    }
+    });
 }
 
 /**
@@ -560,7 +567,6 @@ export function decorateButtons(block = document) {
     }
   });
 }
-
 
 /**
  * Load LCP block and/or wait for LCP in default content.
