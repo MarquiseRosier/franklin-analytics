@@ -34,7 +34,7 @@ function buildHeroBlock(main) {
 
 function initPartytown() {
   window.partytown = {
-    lib: '/scripts/'
+    lib: '/scripts/',
   };
   import('./partytown.js');
 }

@@ -7,11 +7,11 @@ function createInlineScriptHTML(innerHTML, parent) {
   parent.appendChild(script);
 }
 
-function createInlineScriptSrc(src, parent){
+function createInlineScriptSrc(src, parent) {
   const script = document.createElement('script');
   script.type = 'text/partytown';
   script.src = src;
-  parent.appendChild(script); 
+  parent.appendChild(script);
 }
 
 export default function integrateEcharts() {
