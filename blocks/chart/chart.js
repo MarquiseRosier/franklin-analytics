@@ -61,9 +61,6 @@ export default function decorate(block) {
     block.append(canvasWrapper);
 
     const paramData = new URLSearchParams();
-    paramData.append('startdate', '2020-01-01');
-    paramData.append('enddate', '2023-05-14');
-    paramData.append('limit', 10);
     Object.entries(paramsObj).forEach(([param, val]) => {
       paramData.append(param, val);
     });
