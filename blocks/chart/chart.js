@@ -72,8 +72,12 @@ export default function decorate(block) {
     echartsScript.type = 'text/partytown';
     //echartsScript.src ='../../scripts/request-rum.js'
     echartsScript.innerHTML = `
-    fetch('https://helix-pages.anywhere.run/helix-services/run-query@v3/${endpoint}?${paramData.toString()}', {
-        method: 'POST'
+    fetch('https://helix-pages.anywhere.run/helix-services/run-query@v3/${endpoint}', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: '${paramData}'
     })
     .then((res) => res.json())
     .then((data) => {
