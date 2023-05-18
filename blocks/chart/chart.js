@@ -59,7 +59,6 @@ export default function decorate(block) {
     canvasWrapper.style = 'width: 50vw; height: 50vh';
     canvasWrapper.id = chartId;
     block.append(canvasWrapper);
-    
 
     const paramData = new URLSearchParams();
     paramData.append('startdate', '2020-01-01');
@@ -98,10 +97,11 @@ export default function decorate(block) {
       // Display the chart using the configuration items and data just specified.
       myChart.setOption(option);
 
-      document.getElementById('${chartId}').querySelectorAll('svg > g > text[x="0"][y="0"]').forEach((cell, idx, nodeList) => {
-        cell.innerHTML = '<a href="${location.host}/views/rework-block?url=' + cell.innerHTML + '&' + 'startdate=2020-01-01&enddate=2023-05-14&limit=10&domainkey=9d5aceb5-394d-4ce2-b1d0-3b10934a4a3e">' + cell.innerHTML + '</a>';
+      myChart.on('click', { targetType: 'axisLabel' }, params => {
+        window.location.href = 'https://main--franklin-analytics--marquiserosier.hlx.page/views/rework-block?url=' + params.value + '&' + '${paramData.toString()}';
+        console.log('localhost:3000/views/rework-block?url=' + params.value + '&' + '${paramData.toString()}')
       })
-    });`
+  });`
     
     block.append(echartsScript);
   }
