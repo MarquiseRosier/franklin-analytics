@@ -43,6 +43,7 @@ export default function decorate(block) {
     const linkDataUrl = propDict.link[1];
     const legend = propDict.label[0];
     const labelKey = propDict.label[1];
+    block.id = propDict.id[0];
     const chartId = `${propDict.data.join('-')}-${propDict.type.join('-')}`.toLowerCase(); // id is data row + chart type because why have this twice?
 
 
@@ -70,7 +71,7 @@ export default function decorate(block) {
       dateForm.appendChild(endLabel);
       dateForm.appendChild(endDate);
 
-      block.append(dateForm);
+      block.parentElement.parentElement.append(dateForm);
     }
 
     // construct canvas where chart will sit
