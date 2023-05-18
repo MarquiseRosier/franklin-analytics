@@ -77,9 +77,6 @@ export default function decorate(block) {
     echartsScript.innerHTML = `
     fetch('https://helix-pages.anywhere.run/helix-services/run-query@v3/${endpoint}', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: '${paramData}'
     })
     .then((res) => res.json())
