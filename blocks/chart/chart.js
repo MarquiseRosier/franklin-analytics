@@ -98,7 +98,7 @@ export default function decorate(block) {
       myChart.setOption(option);
 
       document.getElementById('${chartId}').querySelectorAll('svg > g > text[x="0"][y="0"]').forEach((cell, idx, nodeList) => {
-        cell.innerHTML = '<a href="${location.host}/views/rework-block?url=' + cell.innerHTML + '&' + '${paramData.toString()}">' + cell.innerHTML + '</a>';
+        cell.innerHTML = '<a href="/views/rework-block?url=' + cell.innerHTML + '&' + '${paramData.toString()}">' + cell.innerHTML + '</a>';
       })
   });`
     
