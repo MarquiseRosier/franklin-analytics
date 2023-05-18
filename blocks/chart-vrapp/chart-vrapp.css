@@ -9,7 +9,7 @@
     grid-template-columns: 50% 50%;
 }
 
-.section.chart-vrapp-container > .chart-vrapp-wrapper > svg {
+.section.chart-vrapp-container > .chart-vrapp-wrapper svg {
     height: 50%;
     width: 50%;
 }
