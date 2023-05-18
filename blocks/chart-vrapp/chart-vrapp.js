@@ -166,9 +166,7 @@ export default function decorate(block) {
         res = JSON.parse(sessionStorage.getItem('${endpoint}'));
       }
       let chartHandle = document.getElementById('${chartId}');
-      var myChart = echarts.init(chartHandle, null, {
-        renderer:'svg'
-      });
+      var myChart = echarts.init(chartHandle);
 
       const plotData = res['${paramData.get('url')}'].sort(function(a,b){
         return ymd2Date(a.year, a.month, a.day) < ymd2Date(b.year, b.month, b.day)
