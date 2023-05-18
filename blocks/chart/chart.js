@@ -76,10 +76,9 @@ export default function decorate(block) {
     //echartsScript.src ='../../scripts/request-rum.js'
     echartsScript.innerHTML = `
     fetch('https://helix-pages.anywhere.run/helix-services/run-query@v3/${endpoint}', {
-        mode: 'no-cors',
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
         body: '${paramData}'
     })
