@@ -83,7 +83,7 @@ export default function decorate(block) {
     });
 
     if(!paramData.has('url')){
-      paramData.append('url','adobecom/bacom');
+      paramData.append('url','adobe/blog');
     }
 
     const echartsScript = document.createElement('script');
