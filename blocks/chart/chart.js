@@ -59,7 +59,6 @@ export default function decorate(block) {
     canvasWrapper.style = 'width: 50vw; height: 50vh';
     canvasWrapper.id = chartId;
     block.append(canvasWrapper);
-    
 
     const paramData = new URLSearchParams();
     paramData.append('startdate', '2020-01-01');
@@ -101,7 +100,7 @@ export default function decorate(block) {
       document.getElementById('${chartId}').querySelectorAll('svg > g > text[x="0"][y="0"]').forEach((cell, idx, nodeList) => {
         cell.innerHTML = '<a href="${location.host}/views/rework-block?url=' + cell.innerHTML + '&' + '${paramData.toString()}'> + cell.innerHTML + '</a>';
       })
-    });`
+  });`
     
     block.append(echartsScript);
   }
