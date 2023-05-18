@@ -154,7 +154,7 @@ export default function decorate(block) {
     (async function(){
       let res;
       if(!sessionStorage.getItem('${endpoint}')){
-        const resp = await fetch('https://lqmig3v5eb.execute-api.us-east-1.amazonaws.com/helix-services/run-query/ci5237/${endpoint}', {
+        const resp = await fetch('https://lqmig3v5eb.execute-api.us-east-1.amazonaws.com/helix-services/run-query/ci5255/${endpoint}', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
