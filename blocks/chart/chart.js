@@ -105,6 +105,52 @@ export default function decorate(block) {
         });
       const data = await resp.json();
       let myChart = echarts.init(chartHandle);
+      function transformTemp(results){
+        const transformed = {};
+        const key = 'public_site' in results[0] ? 'public_site' : 'host';
+        results.forEach((item) => {
+            if(!(item[key] in transformed)){
+                transformed[item[key]] = [item];
+            }
+            else if(item[key] in transformed){
+                transformed[item[key]].push(item)
+            }
+        })
+        return transformed;
+      }
+      if('${chartId}' === 'daily-rum-avgfid-line-cashub'){
+        fetch('https://lqmig3v5eb.execute-api.us-east-1.amazonaws.com/helix-services/run-query/ci5189/site4s', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: '${paramData}'
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          let res = transformTemp(data.results.data);
+          let list = document.createElement('div');
+          list.id = 'chart4';
+          let stack = document.createElement('div');
+          list.className = 'list-container';
+          stack.className = 'floating-stack';
+          list.appendChild(stack);
+          let dl = document.createElement('dl');
+          res['${paramData.get('url')}'].map(row => {
+            let dt = document.createElement('dt');
+            let dd = document.createElement('dd');
+            dt.textContent = row.req_count;
+            dd.textContent = row.url;
+            dl.appendChild(dt);
+            dl.appendChild(dd);
+          });
+          stack.appendChild(dl);
+          document.querySelectorAll('.section.chart-container').forEach((block) => {
+            block.appendChild(list);
+          });
+        })
+      }
+
       ${engineerData(tableAndColumn, paramData, tableColumn, labelKey)}
       ${chartPicker(typeChart, extraChartInfo, tableColumn, perfRanges, legend, chartMin, chartMax)}
       ${engineerDom(tableAndColumn, chartId, paramData)}
@@ -128,7 +174,7 @@ function engineerData(tableAndColumn, paramData, tableColumn, labelKey){
   const labels = res.map(row => row.${labelKey});
   const series = res.map(row => row.${tableColumn});`
 
-  const cashubCommonPlot = `
+  const cashubUtils = `
   function transformDataIntoMap(results){
     const transformed = {};
     const key = 'host';
@@ -151,8 +197,9 @@ function engineerData(tableAndColumn, paramData, tableColumn, labelKey){
   function ymd2Date(year, month, day){
       return new Date(year, month, day);
   }
-  res = transformDataIntoMap(data.results.data);
+  res = transformDataIntoMap(data.results.data);`
 
+  const cashubCommonPlot = `
   let plotData;
   if(${paramData.has('url')} && ('${paramData.get('url')}' in res)){
     plotData = res['${paramData.get('url')}'];
@@ -205,11 +252,11 @@ function engineerData(tableAndColumn, paramData, tableColumn, labelKey){
           var labels = res.map(row => row.${labelKey});\n
           var series = res.map(row => row.${tableColumn}/1000);\n`,
     'rum-dashboard-avgfid': commonPlots,
-    'rum-dashboard-avgcls': commonPlots,
+    'rum-dashboard-avgcls': cashubUtils + commonPlots,
     //cashub queries
-    'daily-rum-avglcp': cashubCommonPlot,
-    'daily-rum-avgfid': cashubCommonPlot,
-    'daily-rum-avgcls': cashubCommonPlot,
+    'daily-rum-avglcp': cashubUtils + cashubCommonPlot,
+    'daily-rum-avgfid': cashubUtils + cashubCommonPlot,
+    'daily-rum-avgcls': cashubUtils + cashubCommonPlot,
   }
 
 

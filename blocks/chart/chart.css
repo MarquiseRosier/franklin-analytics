@@ -33,6 +33,59 @@ div {
     grid-area: c;
 }
 
-.section.chart-container > .chart-wrapper > .chart.block#chart4 {
+.section.chart-container > #chart4 {
     grid-area: d;
 }
+
+.floating-stack {
+    color: red;
+    height: 75%;
+    width: 75%;
+    border-radius: 1rem;
+    overflow-y: auto;
+    top: 15px;
+  }
+  
+  .floating-stack > dl {
+    display: grid;
+    align-items: center;
+  }
+  
+  .floating-stack dt {
+    position: sticky;
+    top: 15px;
+    left: 0.5rem;
+    font-weight: bold;
+    background: #263238;
+    color: #cfd8dc;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    padding: 0.25rem 1rem;
+    grid-column: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  
+  .floating-stack dd {
+    grid-column: 2;
+    margin: 0;
+    padding: 0.75rem;
+  }
+  
+  .floating-stack > dl:first-of-type > dd:first-of-type {
+    margin-top: 0.25rem;
+  }
+  
+  body {
+    color: white;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    font: 100%/1.4 system-ui;
+  }
+  
