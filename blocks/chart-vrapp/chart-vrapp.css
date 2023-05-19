@@ -15,8 +15,8 @@
 }
 
 div {
-    height: 100vh;
-    width: 100vw;
+    height: 50vh;
+    width: 50vw;
 }
 
 .section.chart-vrapp-container > .chart-vrapp-wrapper > .chart-vrapp.block#chart1 {
