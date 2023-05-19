@@ -356,11 +356,12 @@ export function decorateBlocks(main) {
   main
   .querySelectorAll('div.section > div > div')
   .forEach((block, idx) => {
+    let chartCounter = 1;
     decorateBlock(block)
     const shortBlockName = block.classList[0];
     //create id for each chart
-    if(shortBlockName === 'chart-vrapp'){
-      block.id = `chart${idx}`
+    if(shortBlockName === 'chart'){
+      block.id = `chart${chartCounter++}`;
     }
     });
 }
