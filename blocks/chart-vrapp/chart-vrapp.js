@@ -5,7 +5,11 @@ export default function decorate(block) {
     {},
   );
   const propDict = {};
-
+  const axisDict = {
+    avgfid: [0, 100],
+    avgcls: [0, 0.8],
+    avglcp: [0, 4000],
+  };
   block.querySelectorAll(':scope > div > div').forEach((cell, idx, nodeList) => {
     // get first element and link it to the other 2 in a row.
     let key;
@@ -181,6 +185,9 @@ export default function decorate(block) {
     
       // Display the chart using the configuration items and data just specified.
       myChart.setOption(option);
+      new ResizeObserver(() => {
+        myChart.resize();
+      }).observe(chartHandle);
       })()
     `;
 
