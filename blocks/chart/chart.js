@@ -338,7 +338,7 @@ const chartPicker = (typeChart, extraChartInfo, tableColumn, perfRanges, legend,
             data: [
               [
                 {
-                  label: 'Good',
+                  name: 'Good',
                   yAxis: ${perfRanges[tableColumn]['good'][0]}, //min of green area
                   itemStyle: {
                     color: 'rgba(23, 232, 30, 0.2)'
@@ -353,7 +353,7 @@ const chartPicker = (typeChart, extraChartInfo, tableColumn, perfRanges, legend,
                   name: 'Needs Improvement',
                   yAxis: ${perfRanges[tableColumn]['okay'][0]}, //min of green area
                   itemStyle: {
-                    color: '#FEE7E6'
+                    color: 'rgba(256, 256, 256, 0.4)'
                   },
                 },
                 {
