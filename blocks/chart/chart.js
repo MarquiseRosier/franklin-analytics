@@ -35,6 +35,13 @@ export default function decorate(block) {
     'rum-pageviews': 'https://helix-pages.anywhere.run/helix-services/run-query@v3/'
   }
 
+  // Read block config this way
+  // const cfg = readBlockConfig(block);
+
+  // const typeChart = cfg.type;
+  // const extraChartInfo = cfg.source; //rename to source
+  // const endpoint = cfg.data;
+
   block.querySelectorAll(':scope > div > div').forEach((cell, idx, nodeList) => {
     // get first element and link it to the other 2 in a row.
     let key;
