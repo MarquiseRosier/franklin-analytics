@@ -113,7 +113,6 @@ async function loadLazy(doc) {
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
-  integrateEcharts();
   initPartytown();
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
