@@ -14,6 +14,11 @@
     width: 50%;
 }
 
+div {
+    height: 100%;
+    width: 100%;
+}
+
 .section.chart-vrapp-container > .chart-vrapp-wrapper > .chart-vrapp.block#chart1 {
     grid-area: a;
 }
