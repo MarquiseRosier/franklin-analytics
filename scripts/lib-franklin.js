@@ -283,6 +283,7 @@ export function readBlockConfig(block) {
         config[name] = value;
       }
     }
+    row.remove();
   });
   return config;
 }
@@ -353,10 +354,10 @@ export function updateSectionsStatus(main) {
  * @param {Element} main The container element
  */
 export function decorateBlocks(main) {
+  let chartCounter = 1;
   main
   .querySelectorAll('div.section > div > div')
   .forEach((block, idx) => {
-    let chartCounter = 1;
     decorateBlock(block)
     const shortBlockName = block.classList[0];
     //create id for each chart

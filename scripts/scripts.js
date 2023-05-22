@@ -13,8 +13,6 @@ import {
   loadCSS,
 } from './lib-franklin.js';
 
-import integrateEcharts from './third-party.js';
-
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
@@ -30,13 +28,6 @@ function buildHeroBlock(main) {
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
   }
-}
-
-function initPartytown() {
-  window.partytown = {
-    lib: '/scripts/',
-  };
-  import('./partytown.js');
 }
 
 /**
@@ -112,9 +103,6 @@ async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
-
-  integrateEcharts();
-  initPartytown();
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.png`);
